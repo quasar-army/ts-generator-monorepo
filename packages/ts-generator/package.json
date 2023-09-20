@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release": "bumpp"
+    "release": "bumpp && p publish"
   },
   "keywords": [],
   "author": "Luke Diebold & Marc Kuter",
