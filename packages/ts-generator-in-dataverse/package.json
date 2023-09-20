@@ -1,6 +1,6 @@
 {
   "name": "@quasar-army/ts-generator-in-dataverse",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "ts-generator implementation for dataverse",
   "main": "src/index.ts",
   "type": "module",
