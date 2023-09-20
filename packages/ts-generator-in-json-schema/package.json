@@ -1,6 +1,6 @@
 {
   "name": "@quasar-army/ts-generator-in-json-schema",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "ts-generator implementation for JSON Schema",
   "main": "src/index.ts",
   "type": "module",
