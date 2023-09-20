@@ -40,11 +40,11 @@ files.forEach(file => {
 
   sidebarItems[parentIndex].items?.[subIndex]?.items.push({
     text,
-    link
+    link: link.replace('packages', '').replace('docs', '')
   })
 })
 
-// console.log(JSON.stringify(sidebarItems, undefined, 2))
+console.log(JSON.stringify(sidebarItems, undefined, 2))
 
 export default defineConfig({
   title: 'Augment Quasar',
