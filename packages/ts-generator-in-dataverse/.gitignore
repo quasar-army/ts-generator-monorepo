@@ -1,0 +1,7 @@
+.env
+node_modules
+credentials.json
+.cache
+allFetchedEnums.json
+allFetchedTypes.json
+AttributesSample.json

@@ -1,0 +1,1 @@
+https://orgeb727c82.crm6.dynamics.com/api/data/v9.2/EntityDefinitions(LogicalName='cr984_uitab')?$expand=Attributes

@@ -1,0 +1,32 @@
+{
+  "name": "@quasar-army/ts-generator-in-json-schema",
+  "version": "0.0.1",
+  "description": "ts-generator implementation for JSON Schema",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "test:type": "ts-node --esm ./src/test/test-type.ts",
+    "test:types": "ts-node --esm ./src/test/test-types.ts",
+    "test:enum": "ts-node --esm ./src/test/test-enum.ts",
+    "test:enums": "ts-node --esm ./src/test/test-enums.ts",
+    "test:definitions": "ts-node --esm ./src/test/test-definitions.ts"
+  },
+  "keywords": [],
+  "author": "Luke Diebold & Marc Kuter",
+  "license": "ISC",
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.2",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "@quasar-army/ts-generator": "^0.0.1",
+    "@types/node": "^18.0.0",
+    "change-case": "^4.1.2",
+    "dataverse-auth": "^1.0.9",
+    "dotenv": "^16.0.3",
+    "fast-glob": "^3.2.12",
+    "inflection": "^2.0.1",
+    "lodash-es": "^4.17.21",
+    "pluralize": "^8.0.0"
+  }
+}

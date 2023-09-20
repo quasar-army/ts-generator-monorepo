@@ -1,0 +1,25 @@
+{
+  "name": "@quasar-army/ts-generator-persister-file",
+  "version": "0.0.1",
+  "description": "Persist generated typescript files",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "generate": "ts-node --esm ./scripts/generate.ts"
+  },
+  "keywords": [],
+  "author": "Luke Diebold & Marc Kuter",
+  "license": "ISC",
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.2",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "@quasar-army/ts-generator": "^0.0.1",
+    "@types/node": "^18.0.0",
+    "chalk": "^5.2.0",
+    "dotenv": "^16.0.3",
+    "pluralize": "^8.0.0",
+    "inflection": "^2.0.1"
+  }
+}

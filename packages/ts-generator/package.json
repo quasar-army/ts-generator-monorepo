@@ -1,0 +1,18 @@
+{
+  "name": "@quasar-army/ts-generator",
+  "version": "0.0.1",
+  "description": "Library for generating ts files",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Luke Diebold & Marc Kuter",
+  "license": "ISC",
+  "dependencies": {
+    "@types/cli-progress": "^3.11.0",
+    "chalk": "^5.2.0",
+    "cli-progress": "^3.12.0"
+  }
+}
