@@ -1,0 +1,21 @@
+{
+  "name": "@quasar-army/ts-generator-monorepo",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.3.4",
+    "bumpp": "^9.2.0",
+    "change-case": "^4.1.2",
+    "fast-glob": "^3.3.1",
+    "vitepress": "1.0.0-rc.14"
+  }
+}
