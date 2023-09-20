@@ -1,18 +1,20 @@
 {
   "name": "@quasar-army/ts-generator-out-pinia-orm",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "ts-generator implementation for PiniaORM",
   "main": "index.ts",
   "type": "module",
   "scripts": {
     "test:entity": "ts-node --esm ./src/test/makeEntityTest.ts",
-    "test:enum": "ts-node --esm ./src/test/makeEnumTest.ts"
+    "test:enum": "ts-node --esm ./src/test/makeEnumTest.ts",
+    "release": "bumpp && pnpm publish --access=public"
   },
   "keywords": [],
   "author": "Luke Diebold & Marc Kuter",
   "license": "ISC",
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.2",
+    "bumpp": "^9.2.0",
     "ts-node": "^10.9.1"
   },
   "dependencies": {

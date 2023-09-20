@@ -1,6 +1,6 @@
 {
   "name": "@quasar-army/ts-generator-in-ms-graph",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "ts-generator implementation for dataverse",
   "main": "src/index.ts",
   "type": "module",
@@ -8,13 +8,15 @@
     "test": "ts-node --esm ./src/test/fetchDefinitionTest.ts",
     "test:complex": "ts-node --esm ./src/test/fetchComplexTypesTest.ts",
     "test:definitions": "ts-node --esm ./src/test/fetchDefinitionsTest.ts",
-    "test:enums": "ts-node --esm ./src/test/fetchEnumsTest.ts"
+    "test:enums": "ts-node --esm ./src/test/fetchEnumsTest.ts",
+    "release": "bumpp && pnpm publish --access=public"
   },
   "keywords": [],
   "author": "Luke Diebold & Marc Kuter",
   "license": "ISC",
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.2",
+    "bumpp": "^9.2.0",
     "ts-node": "^10.9.1"
   },
   "dependencies": {
