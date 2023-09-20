@@ -7,7 +7,7 @@
   "scripts": {
     "test:entity": "ts-node --esm ./src/test/makeEntityTest.ts",
     "test:enum": "ts-node --esm ./src/test/makeEnumTest.ts",
-    "release": "bumpp && pnpm publish --access=public"
+    "release": "bumpp --tag \"@quasar-army/ts-generator-out-pinia-orm-v\" && pnpm publish --access=public"
   },
   "keywords": [],
   "author": "Luke Diebold & Marc Kuter",

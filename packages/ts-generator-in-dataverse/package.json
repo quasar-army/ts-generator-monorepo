@@ -1,5 +1,5 @@
 {
-  "name": "@quasar-army/ts-generator-in-dataverse",
+  "name": "@quasar-army/ts-generator",
   "version": "0.0.8",
   "description": "ts-generator implementation for dataverse",
   "main": "src/index.ts",
@@ -10,7 +10,7 @@
     "test:enum": "ts-node --esm ./src/test/test-enum.ts",
     "test:enums": "ts-node --esm ./src/test/test-enums.ts",
     "test:definitions": "ts-node --esm ./src/test/test-definitions.ts",
-    "release": "bumpp --tag \"@quasar-army-\" && pnpm publish --access=public"
+    "release": "bumpp --tag \"@quasar-army/ts-generator-v\" && pnpm publish --access=public"
   },
   "keywords": [],
   "author": "Luke Diebold & Marc Kuter",

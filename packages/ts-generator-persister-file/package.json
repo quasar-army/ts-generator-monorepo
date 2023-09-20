@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "generate": "ts-node --esm ./scripts/generate.ts",
-    "release": "bumpp && pnpm publish --access=public"
+    "release": "bumpp --tag \"@quasar-army/ts-generator-persister-file-v\" && pnpm publish --access=public"
   },
   "keywords": [],
   "author": "Luke Diebold & Marc Kuter",

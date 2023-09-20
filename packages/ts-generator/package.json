@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release": "bumpp --tag=@quasar-army- && pnpm publish --access=public"
+    "release": "bumpp --tag \"@quasar-army/ts-generator-\" && pnpm publish --access=public"
   },
   "keywords": [],
   "author": "Luke Diebold & Marc Kuter",

@@ -9,7 +9,7 @@
     "test:complex": "ts-node --esm ./src/test/fetchComplexTypesTest.ts",
     "test:definitions": "ts-node --esm ./src/test/fetchDefinitionsTest.ts",
     "test:enums": "ts-node --esm ./src/test/fetchEnumsTest.ts",
-    "release": "bumpp && pnpm publish --access=public"
+    "release": "bumpp --tag \"@quasar-army/ts-generator-in-ms-graph-v\" && pnpm publish --access=public"
   },
   "keywords": [],
   "author": "Luke Diebold & Marc Kuter",
