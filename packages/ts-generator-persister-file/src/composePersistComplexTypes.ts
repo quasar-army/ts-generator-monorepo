@@ -2,7 +2,7 @@ import { ComplexTypeOutput, PersistResponse } from '@quasar-army/ts-generator'
 import { composePersistComplexType } from './composePersistComplexType.js'
 
 export function composePersistComplexTypes (options: {
-  complexTypesDir: string
+  complexTypesDir: string | ((output: ComplexTypeOutput) => string)
 }) {
   return async function persistComplexTypes (
     outputs: ComplexTypeOutput[],

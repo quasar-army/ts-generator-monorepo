@@ -9,7 +9,6 @@ for (const definition of entityDefinitions) {
     const result = await shape(definition)
     shaped.push(result)
   } catch (error) {
-    console.log(definition)
     console.error(error)
   }
 }

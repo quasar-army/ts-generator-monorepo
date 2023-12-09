@@ -6,7 +6,7 @@ const relationshipPiniaOrmNameMap = {
   hasOne: 'HasOne',
 }
 
-export function renderRelationshipsTypes (
+export function renderRelationshipsTypes(
   relationships: TsRelationshipFieldDefinition[],
   indent: string,
 ) {
@@ -27,7 +27,7 @@ export function renderRelationshipsTypes (
     snippet += `@${relationshipName}(() => ${relatedPascals}, '${relationship.foreignKey}') declare ${relationship.fieldName}`
     snippet += ': '
 
-    const types = relatedPascals
+    const types = relationshipName === 'HasMany' ? relatedPascals.map(related => related + '[]') : relatedPascals
     if (relationship.nullable) types.push('null')
     snippet += types.join(' | ')
 

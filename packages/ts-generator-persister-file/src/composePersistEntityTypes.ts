@@ -2,7 +2,7 @@ import { EntityOutput, PersistResponse } from '@quasar-army/ts-generator'
 import { composePersistEntityType } from './composePersistEntityType.js'
 
 export function composePersistEntityTypes (options: {
-  modelsDir: string
+  modelsDir: string | ((output: EntityOutput) => string)
 }) {
   return async function persistEntityTypes (
     outputs: EntityOutput[],

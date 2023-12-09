@@ -2,15 +2,14 @@ import { EnumOutput, PersistResponse } from '@quasar-army/ts-generator'
 import { writeFileRecursive } from './utils/saveStringToFile.js'
 
 export function composePersistEnumType (options: {
-  enumsDir: string
+  enumsDir: string | ((output: EnumOutput) => string)
 }) {
   return async function persistEnumType (
     output: EnumOutput,
   ): Promise<PersistResponse> {
-    const fileName = options.enumsDir +
-      '/' +
-      output.definition.namePascal +
-      '.ts'
+    const fileName = typeof options.enumsDir === 'function' ?
+      options.enumsDir(output) :
+      options.enumsDir + '/' + output.definition.namePascal + '.ts'
 
     try {
       await writeFileRecursive(fileName, output.file)

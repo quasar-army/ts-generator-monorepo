@@ -1,4 +1,4 @@
-import { TsGeneratorPersistPlugin } from '@quasar-army/ts-generator'
+import { ComplexTypeOutput, EnumOutput, TsGeneratorPersistPlugin, EntityOutput } from '@quasar-army/ts-generator'
 import { composePersistEntityType } from './src/composePersistEntityType.js'
 import { composePersistEntityTypes } from './src/composePersistEntityTypes.js'
 import { composePersistEnumType } from './src/composePersistEnumType.js'
@@ -7,9 +7,9 @@ import { composePersistComplexType } from './src/composePersistComplexType.js'
 import { composePersistComplexTypes } from './src/composePersistComplexTypes.js'
 
 export function MakeFilePersister (options: {
-  modelsDir: string
-  enumsDir: string
-  complexTypesDir: string
+  modelsDir: string | ((output: EntityOutput) => string)
+  enumsDir: string | ((output: EnumOutput) => string)
+  complexTypesDir: string | ((output: ComplexTypeOutput) => string)
 }): TsGeneratorPersistPlugin {
   return {
     persistEntityType: composePersistEntityType({ modelsDir: options.modelsDir }),

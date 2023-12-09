@@ -1,6 +1,6 @@
 {
   "name": "@quasar-army/ts-generator-in-json-schema",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "ts-generator implementation for JSON Schema",
   "main": "src/index.ts",
   "type": "module",
@@ -24,7 +24,6 @@
     "@quasar-army/ts-generator": "^0.0.1",
     "@types/node": "^18.0.0",
     "change-case": "^4.1.2",
-    "dataverse-auth": "^1.0.9",
     "dotenv": "^16.0.3",
     "fast-glob": "^3.2.12",
     "inflection": "^2.0.1",

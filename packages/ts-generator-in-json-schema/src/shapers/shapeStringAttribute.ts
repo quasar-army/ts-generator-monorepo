@@ -6,7 +6,6 @@ export function shapeStringAttribute (
   schema: FieldSchema,
   schemas: Record<string, any>,
 ): TsFieldDefinition | false {
-  console.log('making string')
   return {
     kind: 'rawField',
     fieldName: key,

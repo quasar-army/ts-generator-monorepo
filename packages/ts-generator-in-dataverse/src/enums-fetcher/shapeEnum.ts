@@ -5,11 +5,6 @@ import { pascalCase } from 'change-case'
 export async function shapeEnum (
   enumDefinition: DataverseEnumDefinition,
 ) {
-  if (enumDefinition.Name === 'state') {
-    console.log('-----------------')
-    console.log('FOUND IT!')
-    console.log('-----------------')
-  }
   if (enumDefinition.OptionSetType === 'Picklist') {
     const options: TsEnumOption[] = enumDefinition.Options.map(option => {
       return {

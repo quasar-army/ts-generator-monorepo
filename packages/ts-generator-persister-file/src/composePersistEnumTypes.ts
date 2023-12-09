@@ -2,7 +2,7 @@ import { EnumOutput, PersistResponse } from '@quasar-army/ts-generator'
 import { composePersistEnumType } from './composePersistEnumType.js'
 
 export function composePersistEnumTypes (options: {
-  enumsDir: string
+  enumsDir: string | ((output: EnumOutput) => string)
 }) {
   return async function persistEnumTypes (
     outputs: EnumOutput[],
