@@ -10,15 +10,18 @@ export function MakeOutPiniaOrm (options: {
   modelsDir?: string
   enumsDir?: string
   complexTypesDir?: string
+  idFieldDecorator?: string
 }): TsGeneratorOutPlugin {
   return {
     makeEntityType: composeMakeEntityType({
       enumsDir: options.enumsDir,
       interfaceImportDir: options.complexTypesDir,
+      idFieldDecorator: options.idFieldDecorator
     }),
     makeEntityTypes: composeMakeEntityTypes({
       enumsDir: options.enumsDir,
       interfaceImportDir: options.complexTypesDir,
+      idFieldDecorator: options.idFieldDecorator
     }),
     makeEnumType: composeMakeEnumType(),
     makeEnumTypes: composeMakeEnumTypes(),

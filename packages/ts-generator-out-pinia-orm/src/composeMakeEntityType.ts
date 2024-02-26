@@ -13,6 +13,7 @@ const indent = '  '
 export function composeMakeEntityType (options: {
   enumsDir?: string
   interfaceImportDir?: string
+  idFieldDecorator?: string
 }) {
   return async function makeEntityType (
     entityDefinition: TsEntity,
@@ -50,7 +51,7 @@ export function composeMakeEntityType (options: {
     /**
      * Fields
      */
-    const renderedFieldTypes = renderFieldTypes(fields, indent)
+    const renderedFieldTypes = renderFieldTypes(fields, indent, entityDefinition, { idFieldDecorator: options.idFieldDecorator })
     if (renderedFieldTypes) {
       template += '\n\n'
       template += `${indent}// fields\n`

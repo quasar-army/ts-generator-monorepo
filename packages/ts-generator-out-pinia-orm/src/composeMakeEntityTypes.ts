@@ -4,6 +4,7 @@ import { composeMakeEntityType } from './composeMakeEntityType.js'
 export function composeMakeEntityTypes (options: {
   enumsDir?: string
   interfaceImportDir?: string
+  idFieldDecorator?: string
 }) {
   return async function makeEntityTypes (
     entityDefinitions: TsEntity[],

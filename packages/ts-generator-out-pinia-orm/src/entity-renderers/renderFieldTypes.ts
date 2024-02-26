@@ -1,4 +1,4 @@
-import { TsRawFieldDefinition } from '@quasar-army/ts-generator'
+import { TsEntity, TsRawFieldDefinition } from '@quasar-army/ts-generator'
 
 function isValidPropertyName (propertyName: string) {
   return /^[$A-Z_][0-9A-Z_$]*$/i.test(propertyName)
@@ -7,6 +7,8 @@ function isValidPropertyName (propertyName: string) {
 export function renderFieldTypes (
   fields: TsRawFieldDefinition[],
   indent: string,
+  entityDefinition: TsEntity,
+  options?: { idFieldDecorator?: string }
 ) {
   const result = []
 
@@ -14,10 +16,13 @@ export function renderFieldTypes (
     const fieldName = isValidPropertyName(field.fieldName)
       ? field.fieldName
       : `'${field.fieldName}'`
+    
+    const isId = fieldName === entityDefinition.primaryKey
+    const decorator = isId ? (options.idFieldDecorator ?? 'Uid') : 'Attr'
 
     let snippet = ''
     snippet += indent
-    snippet += '@Attr() declare '
+    snippet += `@${decorator}() declare `
     snippet += fieldName
     snippet += ': '
 

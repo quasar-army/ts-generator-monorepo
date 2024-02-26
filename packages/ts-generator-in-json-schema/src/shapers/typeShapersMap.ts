@@ -10,9 +10,11 @@ import { shapeIntegerAttribute } from './shapeIntegerAttribute.js'
 import { shapeHasManyAttribute } from './shapeHasManyAttribute.js'
 import { shapeHasOneAttribute } from './shapeHasOneAttribute.js'
 import { shapeBelongsToAttribute } from './shapeBelongsToAttribute.js'
+import { shapeNumberAttribute } from './shapeNumberAttribute.js'
 
 export const typeShapersMap = {
   string: shapeStringAttribute,
+  number: shapeNumberAttribute,
   integer: shapeIntegerAttribute,
   float: shapeFloatAttribute,
   boolean: shapeBooleanAttribute,

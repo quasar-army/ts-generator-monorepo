@@ -11,7 +11,7 @@ export function renderDecoratorImports (
   relationships: TsRelationshipFieldDefinition[],
   fields: TsRawFieldDefinition[],
 ) {
-  const decoratorImports = []
+  const decoratorImports = ['Uid']
   if (fields.length) {
     decoratorImports.push('Attr')
   }
