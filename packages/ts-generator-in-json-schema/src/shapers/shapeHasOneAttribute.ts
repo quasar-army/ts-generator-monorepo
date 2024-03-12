@@ -7,7 +7,7 @@ export function shapeHasOneAttribute (
   schema: HasOneSchema,
   schemas: Record<string, any>,
 ): TsHasOneDefinition | false {
-  const related = schemas[schema.$ref]
+  const related = schemas[schema.items.$ref]
 
   return {
     kind: 'relationship',
