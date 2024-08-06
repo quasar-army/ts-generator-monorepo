@@ -28,11 +28,7 @@ export function composeMakeMigration (options: {
     const complexFields = entityDefinition.fields.filter(field => field.kind === 'complexField') as TsComplexFieldDefinition[]
 
     const renderPrimaryKey = () => {
-      if (entityDefinition.useUUIDPrimaryKey ?? false) {
-        return `$table->uuid('${entityDefinition.primaryKey}')->default(new Uuid7())->unique();`
-      } else {
-        return `$table->identity('${entityDefinition.primaryKey}', always: true)->primary();`
-      }
+      return `$table->identity('${entityDefinition.primaryKey}', always: true)->primary();`
     }
 
     const renderTimestamps = () => {
