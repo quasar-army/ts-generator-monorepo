@@ -1,5 +1,5 @@
 import { TsEntity } from '@quasar-army/ts-generator'
-import { PiniaOrmPlugin } from '../../index.js'
+import { PiniaOrmPlugin } from '../../../index.js'
 import allFetchedTypes from './allFetchedTypes.json' assert { type: 'json' }
 import chalk from 'chalk'
 

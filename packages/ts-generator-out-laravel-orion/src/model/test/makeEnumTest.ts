@@ -1,5 +1,5 @@
 import { TsEnum } from '@quasar-army/ts-generator'
-import { PiniaOrmPlugin } from '../../index.js'
+import { PiniaOrmPlugin } from '../../../index.js'
 import allFetchedEnums from './allFetchedEnums.json' assert { type: 'json' }
 import chalk from 'chalk'
 
