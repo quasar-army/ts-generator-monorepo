@@ -1,0 +1,29 @@
+{
+  "name": "@quasar-army/ts-generator-out-laravel-orion",
+  "version": "0.0.1",
+  "description": "ts-generator implementation for Laravel Orion",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test:entity": "ts-node --esm ./src/test/makeEntityTest.ts",
+    "test:enum": "ts-node --esm ./src/test/makeEnumTest.ts",
+    "release": "bumpp --tag \"@quasar-army/ts-generator-out-laravel-orion-v\" && pnpm publish --access=public"
+  },
+  "keywords": [],
+  "author": "Luke Diebold & Marc Kuter",
+  "license": "ISC",
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.2",
+    "bumpp": "^9.2.0",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "@quasar-army/ts-generator": "^0.0.2",
+    "@types/node": "^18.0.0",
+    "chalk": "^5.2.0",
+    "dotenv": "^16.0.3",
+    "pluralize": "^8.0.0",
+    "inflection": "^2.0.1",
+    "lodash-es": "^4.17.21"
+  }
+}
