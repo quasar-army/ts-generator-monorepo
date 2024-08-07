@@ -1,11 +1,11 @@
 import { EntityOutput, TsEntity } from '@quasar-army/ts-generator'
-import { composeMakeMigration } from './composeMakeMigration.js'
+import { composeMakePolicy } from './composeMakePolicy.js'
 
-export function composeMakeMigrations () {
-  return async function makeMigrations (
+export function composeMakePolicies () {
+  return async function makePolicies (
     entityDefinitions: TsEntity[],
   ): Promise<EntityOutput[]> {
-    const make = composeMakeMigration()
+    const make = composeMakePolicy()
 
     const promises = entityDefinitions.map(definition => {
       return make(definition)

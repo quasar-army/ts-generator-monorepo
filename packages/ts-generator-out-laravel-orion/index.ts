@@ -2,24 +2,19 @@ import { TsGeneratorOutPlugin } from '@quasar-army/ts-generator'
 import { noOp } from './src/noOp.js'
 import { composeMakeMigration } from './src/migration/composeMakeMigration.js'
 import { composeMakeMigrations } from './src/migration/composeMakeMigrations.js'
+import { composeMakeModel } from './src/model/composeMakeModel.js'
+import { composeMakeModels } from './src/model/composeMakeModels.js'
+import { composeMakePolicy } from './src/policy/composeMakePolicy.js'
+import { composeMakePolicies } from './src/policy/composeMakePolicies.js'
+import { composeMakeRequest } from './src/request/composeMakeRequest.js'
+import { composeMakeRequests } from './src/request/composeMakeRequests.js'
+import { composeMakeResource } from './src/resource/composeMakeResource.js'
+import { composeMakeResources } from './src/resource/composeMakeResources.js'
 
-export function MakeOutMigration (options: {
-  modelsDir?: string
-  enumsDir?: string
-  complexTypesDir?: string
-  idFieldDecorator?: string
-}): TsGeneratorOutPlugin {
+export function MakeOutMigration (): TsGeneratorOutPlugin {
   return {
-    makeEntityType: composeMakeMigration({
-      enumsDir: options.enumsDir,
-      interfaceImportDir: options.complexTypesDir,
-      idFieldDecorator: options.idFieldDecorator
-    }),
-    makeEntityTypes: composeMakeMigrations({
-      enumsDir: options.enumsDir,
-      interfaceImportDir: options.complexTypesDir,
-      idFieldDecorator: options.idFieldDecorator
-    }),
+    makeEntityType: composeMakeMigration(),
+    makeEntityTypes: composeMakeMigrations(),
     makeEnumType: noOp,
     makeEnumTypes: noOp,
     makeComplexType: noOp,
@@ -27,110 +22,46 @@ export function MakeOutMigration (options: {
   }
 }
 
-export function MakeOutModel (options: {
-  modelsDir?: string
-  enumsDir?: string
-  complexTypesDir?: string
-  idFieldDecorator?: string
-}): TsGeneratorOutPlugin {
+export function MakeOutModel (): TsGeneratorOutPlugin {
   return {
-    makeEntityType: composeMakeEntityType({
-      enumsDir: options.enumsDir,
-      interfaceImportDir: options.complexTypesDir,
-      idFieldDecorator: options.idFieldDecorator
-    }),
-    makeEntityTypes: composeMakeEntityTypes({
-      enumsDir: options.enumsDir,
-      interfaceImportDir: options.complexTypesDir,
-      idFieldDecorator: options.idFieldDecorator
-    }),
-    makeEnumType: composeMakeEnumType(),
-    makeEnumTypes: composeMakeEnumTypes(),
-    makeComplexType: composeMakeComplexType({
-      enumsDir: options.enumsDir,
-      interfaceImportDir: options.complexTypesDir,
-    }),
-    makeComplexTypes: composeMakeComplexTypes({ enumsDir: options.enumsDir }),
+    makeEntityType: composeMakeModel(),
+    makeEntityTypes: composeMakeModels(),
+    makeEnumType: noOp,
+    makeEnumTypes: noOp,
+    makeComplexType: noOp,
+    makeComplexTypes: noOp,
   }
 }
 
-export function MakeOutPolicy (options: {
-  modelsDir?: string
-  enumsDir?: string
-  complexTypesDir?: string
-  idFieldDecorator?: string
-}): TsGeneratorOutPlugin {
+export function MakeOutPolicy (): TsGeneratorOutPlugin {
   return {
-    makeEntityType: composeMakeEntityType({
-      enumsDir: options.enumsDir,
-      interfaceImportDir: options.complexTypesDir,
-      idFieldDecorator: options.idFieldDecorator
-    }),
-    makeEntityTypes: composeMakeEntityTypes({
-      enumsDir: options.enumsDir,
-      interfaceImportDir: options.complexTypesDir,
-      idFieldDecorator: options.idFieldDecorator
-    }),
-    makeEnumType: composeMakeEnumType(),
-    makeEnumTypes: composeMakeEnumTypes(),
-    makeComplexType: composeMakeComplexType({
-      enumsDir: options.enumsDir,
-      interfaceImportDir: options.complexTypesDir,
-    }),
-    makeComplexTypes: composeMakeComplexTypes({ enumsDir: options.enumsDir }),
+    makeEntityType: composeMakePolicy(),
+    makeEntityTypes: composeMakePolicies(),
+    makeEnumType: noOp,
+    makeEnumTypes: noOp,
+    makeComplexType: noOp,
+    makeComplexTypes: noOp,
   }
 }
 
-export function MakeOutRequest (options: {
-  modelsDir?: string
-  enumsDir?: string
-  complexTypesDir?: string
-  idFieldDecorator?: string
-}): TsGeneratorOutPlugin {
+export function MakeOutRequest (): TsGeneratorOutPlugin {
   return {
-    makeEntityType: composeMakeEntityType({
-      enumsDir: options.enumsDir,
-      interfaceImportDir: options.complexTypesDir,
-      idFieldDecorator: options.idFieldDecorator
-    }),
-    makeEntityTypes: composeMakeEntityTypes({
-      enumsDir: options.enumsDir,
-      interfaceImportDir: options.complexTypesDir,
-      idFieldDecorator: options.idFieldDecorator
-    }),
-    makeEnumType: composeMakeEnumType(),
-    makeEnumTypes: composeMakeEnumTypes(),
-    makeComplexType: composeMakeComplexType({
-      enumsDir: options.enumsDir,
-      interfaceImportDir: options.complexTypesDir,
-    }),
-    makeComplexTypes: composeMakeComplexTypes({ enumsDir: options.enumsDir }),
+    makeEntityType: composeMakeRequest(),
+    makeEntityTypes: composeMakeRequests(),
+    makeEnumType: noOp,
+    makeEnumTypes: noOp,
+    makeComplexType: noOp,
+    makeComplexTypes: noOp,
   }
 }
 
-export function MakeOutResource (options: {
-  modelsDir?: string
-  enumsDir?: string
-  complexTypesDir?: string
-  idFieldDecorator?: string
-}): TsGeneratorOutPlugin {
+export function MakeOutResource (): TsGeneratorOutPlugin {
   return {
-    makeEntityType: composeMakeEntityType({
-      enumsDir: options.enumsDir,
-      interfaceImportDir: options.complexTypesDir,
-      idFieldDecorator: options.idFieldDecorator
-    }),
-    makeEntityTypes: composeMakeEntityTypes({
-      enumsDir: options.enumsDir,
-      interfaceImportDir: options.complexTypesDir,
-      idFieldDecorator: options.idFieldDecorator
-    }),
-    makeEnumType: composeMakeEnumType(),
-    makeEnumTypes: composeMakeEnumTypes(),
-    makeComplexType: composeMakeComplexType({
-      enumsDir: options.enumsDir,
-      interfaceImportDir: options.complexTypesDir,
-    }),
-    makeComplexTypes: composeMakeComplexTypes({ enumsDir: options.enumsDir }),
+    makeEntityType: composeMakeResource(),
+    makeEntityTypes: composeMakeResources(),
+    makeEnumType: noOp,
+    makeEnumTypes: noOp,
+    makeComplexType: noOp,
+    makeComplexTypes: noOp,
   }
 }

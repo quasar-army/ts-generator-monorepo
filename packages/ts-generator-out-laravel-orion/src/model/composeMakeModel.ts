@@ -12,8 +12,8 @@ import { pluralize, underscore } from 'inflection'
 
 const indent = '  '
 
-export function composeMakeMigration () {
-  return async function makeMigration (
+export function composeMakeModel () {
+  return async function makeModel (
     entityDefinition: TsEntity,
   ): Promise<EntityOutput> {
     const entityPascal = entityDefinition.namePascal
@@ -37,18 +37,79 @@ export function composeMakeMigration () {
 
     const renderSoftDelete = () => {
       if (entityDefinition.useSoftDelete ?? false) {
-        return '$table->softDeletes();'
+        return 'use Illuminate\\Database\\Eloquent\\SoftDeletes;'
       } else {
         return ''
       }
+    }
+
+    const renderFillable = () => {
+      let output = 'protected $fillable = [\n'
+
+      fields.forEach(field => {
+        if (field.fieldName === entityDefinition.primaryKey) {
+          return
+        }
+
+        output += `'${field.fieldName}',\n`
+      });
+
+      output += '];'
+
+      return output
+    }
+
+    const renderDates = () => {
+      let output = 'protected $dateCasts = [\n'
+
+      fields.forEach(field => {
+        if (
+          field.fieldName === 'date' ||
+          field.fieldName === 'datetime' ||
+          field.fieldName.includes('_date')
+        ) {
+          output += `'${field.fieldName}' => 'datetime',\n`
+        }
+      });
+
+      output += '];'
+
+      return output
+    }
+
+    const renderCasts = () => {
+      let output = 'protected $casts = [\n'
+
+      output += '...$dateCasts,\n' 
+
+      // fields.forEach(field => {
+      //   if (field.fieldName === entityDefinition.primaryKey) {
+      //     return
+      //   }
+
+      //   output += `'${field.fieldName}',\n`
+      // });
+
+      output += '];'
+
+      return output
+    }
+
+    const renderRelationships = () => {
+      let output = ''
+
+    `  public function crop_collection()
+    {
+        return $this->belongsTo(\App\CropCollection::class);
+    }`
     }
 
     const fieldTypeMap = new Map(
       [
         [ 'string', 'string' ],
         [ 'integer', 'bigInteger' ],
-        [ 'float', 'float' ],
-        [ 'boolean', 'boolean' ],
+        [ 'float', 'two' ],
+        [ 'boolean', 'two' ],
       ]
     )
 
@@ -60,13 +121,7 @@ export function composeMakeMigration () {
           return
         }
 
-        if (relationships.find(f => f.relationshipType === 'belongsTo' && f.foreignKey === field.fieldName)) {
-          return
-        }
-
-        const fieldType = field.types.find(fieldType => !!fieldType) ?? 'string'
-
-        output += `$table->${fieldTypeMap.get(fieldType)}('${field.fieldName}')`
+        output += `$table->${fieldTypeMap.get(field.types)}('${field.fieldName}')`
 
         if (field.nullable) {
           output += '->nullable()'
@@ -78,60 +133,57 @@ export function composeMakeMigration () {
       return output
     }
 
-    const renderRelations = () => {
-      let output = ''
-
-      relationships.filter(f => f.relationshipType === 'belongsTo').forEach(relationship => {
-        output += `$table->foreignId('${relationship.foreignKey}')`
-        if (relationship.nullable) {
-          output += `->nullable()`
-        }
-        output += `->constrained();\n`
-      })
-
-      return output
-    }
-
     const template = `
 <?php
 
-use Illuminate\\Database\\Migrations\\Migration;
-use Illuminate\\Database\\Schema\\Blueprint;
-use Illuminate\\Support\\Facades\\Schema;
+namespace App;
 
-return new class extends Migration
+use Illuminate\\Database\\Eloquent\\Model;
+use App\\Scopes\\UserFarmsScope;
+use Illuminate\\Database\\Eloquent\\Builder;
+
+class ${entityPascal} extends Model
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    use \\App\\Traits\\CommonScopesTrait;
+    ${renderSoftDelete()}
+
+    ${renderFillable()}
+
+    ${renderDates()}
+
+    ${renderCasts()}
+
+    protected static function booted()
     {
-        Schema::create('${pluralize(entityDefinition.entity)}', function (Blueprint $table) {
-            ${renderPrimaryKey()}
-            ${renderTimestamps()}
-            ${renderSoftDelete()}
-            ${renderFields()}
-            ${renderRelations()}
+        static::addGlobalScope(new UserFarmsScope);
+    }
+
+    ${renderRelationships()}
+
+    public function farm()
+    {
+        return $this->belongsTo(Details::class, 'farm_id');
+    }
+
+    public function crop_collection()
+    {
+        return $this->belongsTo(\App\CropCollection::class);
+    }
+
+    public function scopeCropCollectionIdIn(Builder $query, Array $collectionIds)
+    {
+        return $query->whereHas('crop_collection', function (Builder $query) use ($collectionIds) {
+            $query->whereIn('id', $collectionIds);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('${pluralize(entityDefinition.entity)}');
-    }
-};
+}
+
     `
 
     return {
       definition: entityDefinition,
-      entityName: `migration.${entityDefinition.entity}`,
+      entityName: `model.${entityDefinition.entity}`,
       file: template,
     }
   }

@@ -12,8 +12,8 @@ import { pluralize, underscore } from 'inflection'
 
 const indent = '  '
 
-export function composeMakeMigration () {
-  return async function makeMigration (
+export function composeMakePolicy () {
+  return async function makePolicy (
     entityDefinition: TsEntity,
   ): Promise<EntityOutput> {
     const entityPascal = entityDefinition.namePascal
@@ -47,49 +47,29 @@ export function composeMakeMigration () {
       [
         [ 'string', 'string' ],
         [ 'integer', 'bigInteger' ],
-        [ 'float', 'float' ],
-        [ 'boolean', 'boolean' ],
+        [ 'float', 'two' ],
+        [ 'boolean', 'two' ],
       ]
     )
 
     const renderFields = () => {
-      let output = ''
+      let fieldsString = ''
 
       fields.forEach(field => {
         if (field.fieldName === entityDefinition.primaryKey) {
           return
         }
 
-        if (relationships.find(f => f.relationshipType === 'belongsTo' && f.foreignKey === field.fieldName)) {
-          return
-        }
-
-        const fieldType = field.types.find(fieldType => !!fieldType) ?? 'string'
-
-        output += `$table->${fieldTypeMap.get(fieldType)}('${field.fieldName}')`
+        fieldsString += `$table->${fieldTypeMap.get(field.types)}('${field.fieldName}')`
 
         if (field.nullable) {
-          output += '->nullable()'
+          fieldsString += '->nullable()'
         }
 
-        output += ";\n"
+        fieldsString += ";\n"
       });
 
-      return output
-    }
-
-    const renderRelations = () => {
-      let output = ''
-
-      relationships.filter(f => f.relationshipType === 'belongsTo').forEach(relationship => {
-        output += `$table->foreignId('${relationship.foreignKey}')`
-        if (relationship.nullable) {
-          output += `->nullable()`
-        }
-        output += `->constrained();\n`
-      })
-
-      return output
+      return fieldsString
     }
 
     const template = `
@@ -113,7 +93,10 @@ return new class extends Migration
             ${renderTimestamps()}
             ${renderSoftDelete()}
             ${renderFields()}
-            ${renderRelations()}
+            $table->foreignId('farm_id')->references('id')->on('details');
+            $table->foreignId('farm_property_id')->constrained();
+            $table->foreignId('period_id')->constrained();
+            $table->foreignId('valuation_category_id')->constrained();
         });
     }
 
@@ -131,7 +114,7 @@ return new class extends Migration
 
     return {
       definition: entityDefinition,
-      entityName: `migration.${entityDefinition.entity}`,
+      entityName: `policy.${entityDefinition.entity}`,
       file: template,
     }
   }
