@@ -95,13 +95,27 @@ export function composeMakeModel () {
       return output
     }
 
+    const relationshipTypeMap = new Map(
+      [
+        [ 'hasMany', 'hasMany' ],
+        [ 'belongsTo', 'belongsTo' ],
+        [ 'hasOne', 'hasOne' ],
+      ]
+    )
+
     const renderRelationships = () => {
       let output = ''
 
-    `  public function crop_collection()
-    {
-        return $this->belongsTo(\App\CropCollection::class);
-    }`
+      relationships.forEach(relationship => {
+        output += 
+        `public function ${relationship.fieldName}()
+        {
+          return $this->${relationshipTypeMap.get(relationship.relationshipType)}(\\App\\${relationship.relatedEntityPascal}::class);
+        }
+        `
+      })
+
+      return output
     }
 
     const fieldTypeMap = new Map(
@@ -159,24 +173,6 @@ class ${entityPascal} extends Model
     }
 
     ${renderRelationships()}
-
-    public function farm()
-    {
-        return $this->belongsTo(Details::class, 'farm_id');
-    }
-
-    public function crop_collection()
-    {
-        return $this->belongsTo(\App\CropCollection::class);
-    }
-
-    public function scopeCropCollectionIdIn(Builder $query, Array $collectionIds)
-    {
-        return $query->whereHas('crop_collection', function (Builder $query) use ($collectionIds) {
-            $query->whereIn('id', $collectionIds);
-        });
-    }
-
 }
 
     `
