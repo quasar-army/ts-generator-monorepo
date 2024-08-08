@@ -1,4 +1,5 @@
 import { EntityOutput, TsComplexFieldDefinition, TsEntity, TsEnumDefinition, TsRawFieldDefinition, TsRelationshipFieldDefinition } from '@quasar-army/ts-generator'
+import fieldIsDate from '../helpers/fieldIsDate.js'
 import { renderDecoratorImports } from './entity-renderers/renderDecoratorImports.js'
 import { renderFieldTypes } from './entity-renderers/renderFieldTypes.js'
 import { renderRelationshipsTypes } from './entity-renderers/renderRelationshipsTypes.js'
@@ -63,11 +64,7 @@ export function composeMakeModel () {
       let output = 'protected $dateCasts = [\n'
 
       fields.forEach(field => {
-        if (
-          field.fieldName === 'date' ||
-          field.fieldName === 'datetime' ||
-          field.fieldName.includes('_date')
-        ) {
+        if (fieldIsDate(field)) {
           output += `'${field.fieldName}' => 'datetime',\n`
         }
       });
@@ -82,13 +79,13 @@ export function composeMakeModel () {
 
       output += '...$dateCasts,\n' 
 
-      // fields.forEach(field => {
-      //   if (field.fieldName === entityDefinition.primaryKey) {
-      //     return
-      //   }
+      fields.forEach(field => {
+        const fieldType = field.types.find(fieldType => fieldType !== 'null') ?? 'string'
 
-      //   output += `'${field.fieldName}',\n`
-      // });
+        if (fieldType === 'number' && field.numberType ==='float') {
+          output += `'${field.fieldName}' => 'float',\n`
+        }
+      });
 
       output += '];'
 

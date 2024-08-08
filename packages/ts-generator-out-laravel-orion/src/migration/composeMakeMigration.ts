@@ -10,6 +10,8 @@ import { renderComplexTypeImports } from './entity-renderers/renderComplexTypeIm
 
 import { pluralize, underscore } from 'inflection'
 
+import fieldIsDate from '../helpers/fieldIsDate.js'
+
 const indent = '  '
 
 export function composeMakeMigration () {
@@ -46,11 +48,22 @@ export function composeMakeMigration () {
     const fieldTypeMap = new Map(
       [
         [ 'string', 'string' ],
-        [ 'integer', 'bigInteger' ],
-        [ 'float', 'float' ],
         [ 'boolean', 'boolean' ],
       ]
     )
+
+    const numberTypeMap = new Map(
+      [
+        [ 'integer', 'bigInteger' ],
+        [ 'float', 'float' ],
+      ]
+    )
+
+    const timestampFields = [
+      'created_at',
+      'updated_at',
+      'deleted_at'
+    ]
 
     const renderFields = () => {
       let output = ''
@@ -60,13 +73,26 @@ export function composeMakeMigration () {
           return
         }
 
+        if (timestampFields.includes(field.fieldName)) {
+          return
+        }
+
         if (relationships.find(f => f.relationshipType === 'belongsTo' && f.foreignKey === field.fieldName)) {
           return
         }
 
-        const fieldType = field.types.find(fieldType => !!fieldType) ?? 'string'
+        const fieldType = field.types.find(fieldType => fieldType !== 'null') ?? 'string'
 
-        output += `$table->${fieldTypeMap.get(fieldType)}('${field.fieldName}')`
+        if (fieldType === 'number') {
+          output += `$table->${numberTypeMap.get(field.numberType)}('${field.fieldName}')`
+        } else {
+          if (fieldIsDate(field)) {
+            output += `$table->dateTimeTz('${field.fieldName}')`
+          } else {
+          output += `$table->${fieldTypeMap.get(fieldType)}('${field.fieldName}')`
+          }
+        }
+        
 
         if (field.nullable) {
           output += '->nullable()'

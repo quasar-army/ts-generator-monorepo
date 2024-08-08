@@ -75,41 +75,69 @@ export function composeMakePolicy () {
     const template = `
 <?php
 
-use Illuminate\\Database\\Migrations\\Migration;
-use Illuminate\\Database\\Schema\\Blueprint;
-use Illuminate\\Support\\Facades\\Schema;
+namespace App\\Policies;
 
-return new class extends Migration
+use App\\${entityDefinition.namePascal};
+use App\\User;
+use Bouncer;
+use Illuminate\\Auth\\Access\\HandlesAuthorization;
+
+class ${entityDefinition.namePascal}Policy
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    use HandlesAuthorization;
+
+    public function before(User $user, $ability)
     {
-        Schema::create('${pluralize(entityDefinition.entity)}', function (Blueprint $table) {
-            ${renderPrimaryKey()}
-            ${renderTimestamps()}
-            ${renderSoftDelete()}
-            ${renderFields()}
-            $table->foreignId('farm_id')->references('id')->on('details');
-            $table->foreignId('farm_property_id')->constrained();
-            $table->foreignId('period_id')->constrained();
-            $table->foreignId('valuation_category_id')->constrained();
-        });
+        if ($user->isAdmin()) {
+            return true;
+        }
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function viewAny(User $user)
     {
-        Schema::dropIfExists('${pluralize(entityDefinition.entity)}');
+        return true;
     }
-};
+
+    public function view(User $user, ${entityDefinition.namePascal} $model)
+    {
+        return true;
+    }
+
+    public function create(User $user)
+    {
+        return $user->canAccessFarm(request()->header('X-Farm-Id'));
+    }
+
+    public function update(User $user, ${entityDefinition.namePascal} $model)
+    {
+        $farm = $model->farm;
+
+        return Bouncer::can('manage', $farm)
+            || $user->isFarmsPrimaryManager($farm)
+            || $user->canManageBusiness($farm->businesses)
+            || $user->can('view', $farm);
+    }
+
+    public function delete(User $user, ${entityDefinition.namePascal} $model)
+    {
+        $farm = $model->farm;
+
+        return Bouncer::can('manage', $farm)
+            || $user->isFarmsPrimaryManager($farm)
+            || $user->canManageBusiness($farm->businesses)
+            || $user->can('view', $farm);
+    }
+
+    public function restore(User $user, ${entityDefinition.namePascal} $model)
+    {
+        //
+    }
+
+    public function forceDelete(User $user, ${entityDefinition.namePascal} $model)
+    {
+        //
+    }
+}
     `
 
     return {

@@ -75,41 +75,26 @@ export function composeMakeRequest () {
     const template = `
 <?php
 
-use Illuminate\\Database\\Migrations\\Migration;
-use Illuminate\\Database\\Schema\\Blueprint;
-use Illuminate\\Support\\Facades\\Schema;
+namespace App\\Http\\Requests;
 
-return new class extends Migration
+use Orion\\Http\\Requests\\Request;
+
+class ${entityDefinition.namePascal}Request extends Request
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function commonRules(): array
     {
-        Schema::create('${pluralize(entityDefinition.entity)}', function (Blueprint $table) {
-            ${renderPrimaryKey()}
-            ${renderTimestamps()}
-            ${renderSoftDelete()}
-            ${renderFields()}
-            $table->foreignId('farm_id')->references('id')->on('details');
-            $table->foreignId('farm_property_id')->constrained();
-            $table->foreignId('period_id')->constrained();
-            $table->foreignId('valuation_category_id')->constrained();
-        });
+        return [
+            //
+        ];
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function storeRules(): array
     {
-        Schema::dropIfExists('${pluralize(entityDefinition.entity)}');
+        return [
+
+        ];
     }
-};
+}
     `
 
     return {

@@ -75,41 +75,22 @@ export function composeMakeResource () {
     const template = `
 <?php
 
-use Illuminate\\Database\\Migrations\\Migration;
-use Illuminate\\Database\\Schema\\Blueprint;
-use Illuminate\\Support\\Facades\\Schema;
+namespace App\\Http\\Resources;
 
-return new class extends Migration
+use Orion\\Http\\Resources\\Resource;
+
+class ${entityDefinition.namePascal}Resource extends Resource
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function toArray($request)
     {
-        Schema::create('${pluralize(entityDefinition.entity)}', function (Blueprint $table) {
-            ${renderPrimaryKey()}
-            ${renderTimestamps()}
-            ${renderSoftDelete()}
-            ${renderFields()}
-            $table->foreignId('farm_id')->references('id')->on('details');
-            $table->foreignId('farm_property_id')->constrained();
-            $table->foreignId('period_id')->constrained();
-            $table->foreignId('valuation_category_id')->constrained();
-        });
-    }
+        $append = [
+        //
+        ];
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('${pluralize(entityDefinition.entity)}');
+        return array_merge(parent::toArray($request), $append);
     }
-};
+}
+
     `
 
     return {
