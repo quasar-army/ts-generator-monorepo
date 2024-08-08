@@ -11,5 +11,6 @@ export function shapeFloatAttribute (
     fieldName: key,
     nullable: true,
     types: ['number'],
+    numberType: 'float',
   }
 }
