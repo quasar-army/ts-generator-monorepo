@@ -11,5 +11,6 @@ export function shapeIntegerAttribute (
     fieldName: key,
     nullable: true,
     types: ['number'],
+    numberType: 'integer',
   }
 }

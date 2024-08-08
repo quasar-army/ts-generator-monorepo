@@ -13,6 +13,8 @@ export type RawTsType = 'null' |
   'complex' |
   'any'
 
+export type NumberType = 'integer' | 'float'
+
 export type FieldKind = 'rawField' |
   'relationship'
 
@@ -27,6 +29,7 @@ export interface TsFieldDefinitionBase {
 export interface TsRawFieldDefinition extends TsFieldDefinitionBase {
   kind: 'rawField'
   types: (RawTsType | string)[]
+  numberType?: NumberType
 }
 
 export interface TsComplexFieldDefinition extends TsFieldDefinitionBase {
