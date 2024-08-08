@@ -4,6 +4,8 @@ import { composeMakeMigration } from './src/migration/composeMakeMigration.js'
 import { composeMakeMigrations } from './src/migration/composeMakeMigrations.js'
 import { composeMakeModel } from './src/model/composeMakeModel.js'
 import { composeMakeModels } from './src/model/composeMakeModels.js'
+import { composeMakeController } from './src/controller/composeMakeController.js'
+import { composeMakeControllers } from './src/controller/composeMakeControllers.js'
 import { composeMakePolicy } from './src/policy/composeMakePolicy.js'
 import { composeMakePolicies } from './src/policy/composeMakePolicies.js'
 import { composeMakeRequest } from './src/request/composeMakeRequest.js'
@@ -26,6 +28,17 @@ export function MakeOutModel (): TsGeneratorOutPlugin {
   return {
     makeEntityType: composeMakeModel(),
     makeEntityTypes: composeMakeModels(),
+    makeEnumType: noOp,
+    makeEnumTypes: noOp,
+    makeComplexType: noOp,
+    makeComplexTypes: noOp,
+  }
+}
+
+export function MakeOutController (): TsGeneratorOutPlugin {
+  return {
+    makeEntityType: composeMakeController(),
+    makeEntityTypes: composeMakeControllers(),
     makeEnumType: noOp,
     makeEnumTypes: noOp,
     makeComplexType: noOp,
