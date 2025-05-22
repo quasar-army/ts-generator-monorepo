@@ -15,6 +15,6 @@ export function shapeHasManyAttribute (
     relatedEntityPascal: pascalCase(related.title),
     relationshipType: 'hasMany',
     fieldName: key,
-    nullable: true,
+    nullable: false,
   }
 }
