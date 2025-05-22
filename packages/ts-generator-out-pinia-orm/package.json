@@ -1,6 +1,6 @@
 {
   "name": "@quasar-army/ts-generator-out-pinia-orm",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "ts-generator implementation for PiniaORM",
   "main": "index.ts",
   "type": "module",
