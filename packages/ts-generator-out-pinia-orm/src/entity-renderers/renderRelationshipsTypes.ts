@@ -4,6 +4,7 @@ const relationshipPiniaOrmNameMap = {
   hasMany: 'HasMany',
   belongsTo: 'BelongsTo',
   hasOne: 'HasOne',
+  belongsToMany: 'BelongsToMany'
 }
 
 export function renderRelationshipsTypes(
@@ -24,10 +25,22 @@ export function renderRelationshipsTypes(
 
     let snippet = ''
     snippet += indent
-    snippet += `@${relationshipName}(() => ${relatedPascals}, '${relationship.foreignKey}') declare ${relationship.fieldName}`
+    
+    if(
+      relationship.relationshipType === 'hasMany' ||
+      relationship.relationshipType === 'belongsTo' ||
+      relationship.relationshipType === 'hasOne'
+    ) {
+      snippet += `@${relationshipName}(() => ${relatedPascals}, '${relationship.foreignKey}') declare ${relationship.fieldName}`
+    }
+
+    if(relationshipName === 'BelongsToMany' && relationship.relationshipType === 'belongsToMany') {
+      snippet += `@${relationshipName}(() => ${relatedPascals}, () => ${relationship.pivotEntityPascal}, '${relationship.foreignPivotKey}', '${relationship.relatedPivotKey}', '${relationship.parentLocalKey}', '${relationship.relatedLocalKey}') declare ${relationship.fieldName}`
+    }
+
     snippet += ': '
 
-    const types = relationshipName === 'HasMany' ? relatedPascals.map(related => related + '[]') : relatedPascals
+    const types = ['HasMany', 'BelongsToMany'].includes(relationshipName) ? relatedPascals.map(related => related + '[]') : relatedPascals
     if (relationship.nullable) types.push('null')
     snippet += types.join(' | ')
 

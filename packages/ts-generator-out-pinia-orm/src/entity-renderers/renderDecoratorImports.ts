@@ -5,6 +5,7 @@ const relationshipNamesMap = {
   belongsTo: 'BelongsTo',
   hasMany: 'HasMany',
   hasOne: 'HasOne',
+  belongsToMany: 'BelongsToMany',
 }
 
 export function renderDecoratorImports (

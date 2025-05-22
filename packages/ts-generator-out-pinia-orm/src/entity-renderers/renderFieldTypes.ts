@@ -27,7 +27,7 @@ export function renderFieldTypes (
     snippet += ': '
 
     const types = field.types
-    if (field.nullable) types.push('null')
+    if (field.nullable && !isId) types.push('null')
     snippet += types.join(' | ')
 
     result.push(snippet)
