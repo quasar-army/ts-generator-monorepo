@@ -21,7 +21,7 @@ export const makeEntity = (entityDefinition: TsEntity) => {
 
   template += `export class ${entityPascal} extends Model {\n`
   template += `${indent}static entity = '${entityDefinition.entity}'\n`
-  template += `${indent}static primaryKey = '${entitySingular}id'\n\n`
+  template += `${indent}static override primaryKey = '${entitySingular}id'\n\n`
 
   template += `${indent}// fields\n`
   template += renderFieldTypes(fields, indent)
