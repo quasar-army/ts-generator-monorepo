@@ -11,6 +11,7 @@ import { shapeHasManyAttribute } from './shapeHasManyAttribute.js'
 import { shapeHasOneAttribute } from './shapeHasOneAttribute.js'
 import { shapeBelongsToAttribute } from './shapeBelongsToAttribute.js'
 import { shapeNumberAttribute } from './shapeNumberAttribute.js'
+import { shapeBelongsToManyAttribute } from './shapeBelongsToManyAttribute.js'
 
 export const typeShapersMap = {
   string: shapeStringAttribute,
@@ -26,4 +27,5 @@ export const typeShapersMap = {
   has_many: shapeHasManyAttribute,
   has_one: shapeHasOneAttribute,
   belongs_to: shapeBelongsToAttribute,
+  belongs_to_many: shapeBelongsToManyAttribute,
 }

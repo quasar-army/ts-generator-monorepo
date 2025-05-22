@@ -27,7 +27,22 @@ export interface BelongsToSchema extends BaseRelationshipSchema {
   $ref: string
 }
 
+export interface BelongsToManySchema extends BaseRelationshipSchema {
+  relationship: 'belongs_to_many'
+  entity: string
+  type: 'array'
+  items: {
+    $ref: string
+  }
+  foreign_pivot_key: string
+  parent_local_key: string
+  related_local_key: string
+  related_pivot_key: string
+  pivot_entity: string
+}
+
 export type RelationshipSchema =
   HasManySchema |
   HasOneSchema |
-  BelongsToSchema
+  BelongsToSchema |
+  BelongsToManySchema

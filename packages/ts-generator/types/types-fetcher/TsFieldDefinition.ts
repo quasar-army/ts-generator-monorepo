@@ -17,7 +17,7 @@ export type FieldKind = 'rawField' |
   'relationship'
 
 export type relationshipType = 'belongsTo' |
-  'hasMany'
+  'hasMany' | 'belongsToMany'
 
 export interface TsFieldDefinitionBase {
   fieldName: string
@@ -66,6 +66,17 @@ export interface TsHasOneDefinition extends TsFieldDefinitionBase {
   localKey?: string
 }
 
+export interface TsBelongsToManyDefinition extends TsFieldDefinitionBase {
+  kind: 'relationship'
+  relationshipType: 'belongsToMany'
+  relatedEntityPascal: string
+  foreignPivotKey: string
+  parentLocalKey: string
+  relatedLocalKey: string
+  relatedPivotKey: string
+  pivotEntityPascal: string
+}
+
 export interface TsEnumDefinition extends TsFieldDefinitionBase {
   kind: 'enum'
   enumName: string
@@ -75,6 +86,7 @@ export interface TsEnumDefinition extends TsFieldDefinitionBase {
 export type TsRelationshipFieldDefinition =
   TsBelongsToDefinition |
   TsHasManyDefinition |
-  TsHasOneDefinition
+  TsHasOneDefinition |
+  TsBelongsToManyDefinition
 
 export type TsFieldDefinition = TsRawFieldDefinition | TsRelationshipFieldDefinition | TsEnumDefinition | TsComplexFieldDefinition

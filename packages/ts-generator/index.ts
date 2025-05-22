@@ -11,6 +11,7 @@ export type {
   TsRelationshipFieldDefinition,
   TsRawFieldDefinition,
   TsEnumDefinition,
+  TsBelongsToManyDefinition
 } from './types/types-fetcher/TsFieldDefinition.js'
 export type { TypeFetcher } from './types/types-fetcher/TypeFetcher.js'
 export type { EnumFetcher } from './types/enums-fetcher/EnumFetcher.js'
