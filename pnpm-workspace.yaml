@@ -1,0 +1,10 @@
+packages:
+  - ./packages/ts-generator
+  - ./packages/ts-generator-in-dataverse
+  - ./packages/ts-generator-in-json-schema
+  - ./packages/ts-generator-in-ms-graph
+  - ./packages/ts-generator-out-pinia-orm
+  - ./packages/ts-generator-out-raw
+  - ./packages/ts-generator-persister-file
+overrides:
+  '@quasar-army/ts-generator': link:../../.local/share/pnpm/global/5/node_modules/@quasar-army/ts-generator
