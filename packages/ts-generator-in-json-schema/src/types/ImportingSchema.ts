@@ -6,5 +6,6 @@ export interface ImportingSchema {
   'title': string
   'entity': string
   'type': string
+  'composite_keys'?: string[]
   properties: Record<string, FieldSchema | RelationshipSchema>
 }

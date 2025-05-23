@@ -8,7 +8,6 @@ import { RelationshipSchema } from './types/RelationshipSchema.js'
 import { ImportingSchema } from './types/ImportingSchema.js'
 
 export async function fetchEntityDefinition (entity: string): ReturnType<TsGeneratorInPlugin['fetchEntityDefinition']> {
-  // get
   return {
     entity: 'example',
     fields: [
@@ -64,7 +63,7 @@ export async function fetchEntityDefinitions (only?: string[]): ReturnType<TsGen
       entity: schema.entity,
       fields,
       namePascal: pascalCase(schema.title),
-      primaryKey: 'id',
+      primaryKey: schema.composite_keys ?? 'id',
     })
   }
 

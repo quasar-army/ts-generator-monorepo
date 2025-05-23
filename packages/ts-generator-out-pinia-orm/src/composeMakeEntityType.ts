@@ -46,7 +46,16 @@ export function composeMakeEntityType (options: {
 
     template += `export class ${entityPascal} extends Model {\n`
     template += `${indent}static override entity = '${entityDefinition.entity}'\n`
-    template += `${indent}static override primaryKey = '${entityDefinition.primaryKey}'`
+
+    let primaryKey = `'${entityDefinition.primaryKey}'`
+    if(Array.isArray(entityDefinition.primaryKey)) {
+      primaryKey = entityDefinition.primaryKey
+        .map(key => `'${key}'`)
+        .join(', ')
+
+      primaryKey = `[${primaryKey}]`
+    }
+    template += `${indent}static override primaryKey = ${primaryKey}`
 
     /**
      * Fields

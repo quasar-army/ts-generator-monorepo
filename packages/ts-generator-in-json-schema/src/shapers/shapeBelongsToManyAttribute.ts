@@ -20,6 +20,6 @@ export function shapeBelongsToManyAttribute (
     parentLocalKey: schema.parent_local_key,
     pivotEntityPascal: pascalCase(singularize(schema.pivot_entity)),
     relatedLocalKey: schema.related_local_key,
-    relatedPivotKey: schema.related_pivot_key
+    relatedPivotKey: schema.related_pivot_key,
   }
 }
